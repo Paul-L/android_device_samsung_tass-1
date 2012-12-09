@@ -20,20 +20,22 @@ include device/samsung/msm7x27-common/common.mk
 ## Device specific overlay
 DEVICE_PACKAGE_OVERLAYS := device/samsung/tass/overlay
 
-## Audio
-PRODUCT_PACKAGES += \
-    audio.primary.tass \
-    audio_policy.tass
-
 ## Camera
 PRODUCT_PACKAGES += \
     camera.tass
 
+## Lights
+PRODUCT_PACKAGES += \
+   lights.tass
+
+## Audio
+PRODUCT_PACKAGES += \
+   audio_policy.tass \
+   audio.primary.tass
+
 ## Ramdisk
 PRODUCT_COPY_FILES += \
     device/samsung/tass/ramdisk/init.gt-s5570board.rc:root/init.gt-s5570board.rc \
+    device/samsung/tass/ramdisk/init.gt-s5570board.usb.rc:root/init.gt-s5570board.usb.rc \
     device/samsung/tass/ramdisk/ueventd.gt-s5570board.rc:root/ueventd.gt-s5570board.rc \
     device/samsung/tass/ramdisk/TASS.rle:root/TASS.rle
-
-## LDPI assets
-PRODUCT_AAPT_PREF_CONFIG := ldpi
