@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2011 Kolja Dummann <k.dummann@gmail.com>
- * Copyright (C) 2012 Dāvis Mālnieks <daavis.90@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +31,7 @@ static pthread_once_t g_init = PTHREAD_ONCE_INIT;
 static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;
 
 char const *const LCD_FILE = "/sys/class/leds/lcd-backlight/brightness";
+char const *const BUTTON_FILE = "/sys/class/leds/button-backlight/brightness";
 
 static int write_int(char const *path, int value)
 {
@@ -40,7 +40,7 @@ static int write_int(char const *path, int value)
 
 	already_warned = 0;
 
-	ALOGV("write_int: path %s, value %d", path, value);
+	LOGV("write_int: path %s, value %d", path, value);
 	fd = open(path, O_RDWR);
 
 	if (fd >= 0) {
@@ -51,7 +51,7 @@ static int write_int(char const *path, int value)
 		return amt == -1 ? -errno : 0;
 	} else {
 		if (already_warned == 0) {
-			ALOGE("write_int failed to open %s\n", path);
+			LOGE("write_int failed to open %s\n", path);
 			already_warned = 1;
 		}
 		return -errno;
@@ -82,10 +82,24 @@ static int set_light_backlight(struct light_device_t *dev,
 	pthread_mutex_unlock(&g_lock);
 	return err;
 }
+static int set_light_buttons (struct light_device_t* dev,
+		struct light_state_t const* state) {
+	int err = 0;
+	int on = is_lit (state);
+	LOGV("%s state->color = %d is_lit = %d", __func__,state->color , on);
+	pthread_mutex_lock (&g_lock);
+	if(on)
+		write_int(BUTTON_FILE, 1);
+	else
+		write_int(BUTTON_FILE, 0);
+
+	pthread_mutex_unlock (&g_lock);
+	return 0;
+}
 
 static int close_lights(struct light_device_t *dev)
 {
-	ALOGV("close_light is called");
+	LOGV("close_light is called");
 	if (dev)
 		free(dev);
 
@@ -98,10 +112,12 @@ static int open_lights(const struct hw_module_t *module, char const *name,
 	int (*set_light)(struct light_device_t *dev,
 		struct light_state_t const *state);
 
-	ALOGV("open_lights: open with %s", name);
+	LOGV("open_lights: open with %s", name);
 
 	if (0 == strcmp(LIGHT_ID_BACKLIGHT, name))
 		set_light = set_light_backlight;
+	else if (0 == strcmp(LIGHT_ID_BUTTONS, name)) 
+		set_light = set_light_buttons;	
 	else
 		return -EINVAL;
 
@@ -130,7 +146,7 @@ struct hw_module_t HAL_MODULE_INFO_SYM = {
 	.version_major = 1,
 	.version_minor = 0,
 	.id = LIGHTS_HARDWARE_MODULE_ID,
-	.name = "tass lights Module",
+	.name = "lights Module",
 	.author = "Kolja Dummann <k.dummann@gmail.com>",
 	.methods = &lights_module_methods,
 };

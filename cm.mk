@@ -8,8 +8,8 @@ $(call inherit-product, vendor/cm/config/common_mini_phone.mk)
 $(call inherit-product, device/samsung/tass/full_tass.mk)
 
 # Release name and versioning
-PRODUCT_RELEASE_NAME := GalaxyMini
-PRODUCT_VERSION_DEVICE_SPECIFIC := -GT-S5570
+PRODUCT_RELEASE_NAME := GalaxyTass
+PRODUCT_VERSION_DEVICE_SPECIFIC := -GT-S5660
 -include vendor/cm/config/common_versions.mk
 
 ## Device identifier. This must come after all inclusions
@@ -17,4 +17,4 @@ PRODUCT_DEVICE := tass
 PRODUCT_NAME := cm_tass
 
 ## Bootanimation
-TARGET_BOOTANIMATION_NAME := 240
+TARGET_BOOTANIMATION_NAME := vertical-320x480

@@ -1,36 +1,30 @@
 #
-# system.prop for GT-S5570
+# system.prop for tass
 #
 
 ## Graphics
 ro.opengles.version=131072
-ro.sf.lcd_density=120
+ro.sf.lcd_density=160
 video.accelerate.hw=1
 debug.sf.hw=1
-persist.sys.use_dithering=2
-debug.sf.no_hw_vsync=1
 
 ## Media
 media.stagefright.enable-player=true
 media.stagefright.enable-meta=true
 media.stagefright.enable-scan=true
-media.stagefright.enable-http=true
 media.stagefright.enable-record=true
 
 ## Qualcomm
-debug.gr.numframebuffers=3
 debug.qctwa.statusbar=1
 debug.qctwa.preservebuf=1
 com.qc.hardware=true
-debug.enabletr=false
-debug.hwui.render_dirty_regions=false
 
 ## View configuration for QVGA.
-#view.fading_edge_length=8
-#view.touch_slop=15
-#view.minimum_fling_velocity=25
-#ro.max.fling_velocity=4000
-#view.scroll_friction=0.008
+view.fading_edge_length=8
+view.touch_slop=15
+view.minimum_fling_velocity=25
+ro.max.fling_velocity=4000
+view.scroll_friction=0.008
 
 ## RIL, telephony
 rild.libpath=/system/lib/libsec-ril.so
@@ -50,39 +44,11 @@ ro.ril.def.agps.feature=1
 wifi.interface=wlan0
 wifi.ap.interface=athap0
 
-## Memory
-sys.mem.max_hidden_apps=10
-
-sys.mem.FOREGROUND_APP_ADJ=0
-sys.mem.VISIBLE_APP_ADJ=3
-sys.mem.PERCEPTIBLE_APP_ADJ=6
-sys.mem.BACKUP_APP_ADJ=10
-sys.mem.HIDDEN_APP_MIN_ADJ=12
-sys.mem.HIDDEN_APP_MAX_ADJ=15
-
-sys.mem.FOREGROUND_APP_MEM=8192
-sys.mem.VISIBLE_APP_MEM=12288
-sys.mem.PERCEPTIBLE_APP_MEM=30720
-sys.mem.BACKUP_APP_MEM=36864
-sys.mem.HIDDEN_APP_MIN_MEM=41984
-sys.mem.HIDDEN_APP_MAX_MEM=48128
-
 ## Dalvik
 dalvik.vm.lockprof.threshold=500
 dalvik.vm.dexopt-flags=m=y
 dalvik.vm.heapstartsize=5m	
-dalvik.vm.heapgrowthlimit=24m	
-dalvik.vm.heapsize=64m
-dalvik.vm.execution-mode=int:jit
-dalvik.vm.dexopt-data-only=1
-dalvik.vm.verify_bytecode=false
-dalvik.vm.checkjni=0
-
-## Dalvik
-dalvik.vm.lockprof.threshold=500
-dalvik.vm.dexopt-flags=m=y
-dalvik.vm.heapstartsize=5m	
-dalvik.vm.heapgrowthlimit=24m	
+dalvik.vm.heapgrowthlimit=32m	
 dalvik.vm.heapsize=64m
 dalvik.vm.execution-mode=int:jit
 dalvik.vm.dexopt-data-only=1
@@ -96,3 +62,10 @@ ro.vold.umsdirtyratio=20
 
 ## Camcorder
 debug.camcorder.disablemeta=1
+
+## Force Launcher into memory
+ro.HOME_APP_ADJ=1
+
+## Google's location features
+ro.com.google.locationfeatures=1
+ro.com.google.networklocation=1

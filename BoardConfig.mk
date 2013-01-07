@@ -24,7 +24,7 @@ TARGET_BOOTLOADER_BOARD_NAME := tass
 TARGET_KERNEL_CONFIG := cyanogenmod_tass_defconfig
 
 ## Assert
-TARGET_OTA_ASSERT_DEVICE := tass,GT-S5570
+TARGET_OTA_ASSERT_DEVICE := tass,GT-S5660
 
 ## Recovery
 BOARD_LDPI_RECOVERY := true
@@ -33,3 +33,4 @@ BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/tass/recovery/recovery_
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/tass/recovery/graphics.c
 TARGET_RECOVERY_INITRC := device/samsung/tass/recovery/recovery.rc
 TARGET_RECOVERY_FSTAB := device/samsung/tass/recovery/recovery.fstab
+TARGET_PREBUILT_RECOVERY_KERNEL := device/samsung/tass/recovery/recovery_kernel
